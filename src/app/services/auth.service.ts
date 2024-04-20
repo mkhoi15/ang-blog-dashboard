@@ -16,6 +16,7 @@ export class AuthService {
   user$ = user(this.auth);
   currentUserSig = signal<User | null | undefined>(undefined);
   isLoggin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLogginGuard: boolean = false;
 
   constructor(private toastr: ToastrService) {}
 
@@ -23,6 +24,7 @@ export class AuthService {
     const promise = signInWithEmailAndPassword(this.auth, email, password)
       .then(() => {
         this.isLoggin.next(true);
+        this.isLogginGuard = true;
         this.toastr.success('Login successfully!');
       })
       .catch((err) => {
@@ -34,6 +36,7 @@ export class AuthService {
   logout(): Observable<void> {
     const promise = this.auth.signOut().then(() => {
       this.isLoggin.next(false);
+      this.isLogginGuard = false;
       this.toastr.success('Logout successfully!');
     });
     return from(promise);
