@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ang-dashboard-app": {
+      "hosting": {
+        "dashboard-app": [
+          "ang-dashboard-app"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ang-blog-9854a"
+  }
+}

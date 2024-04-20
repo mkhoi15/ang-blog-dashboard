@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
+            <h3 class="text-center text-theme-primary"> {{ formStatus }} Categories</h3>
+            <p class="text-center mb-3">You can add new categories from here</p>
+
+            <form class="form-inline text-center row" #categoryForm='ngForm' (ngSubmit)="onSubmit(categoryForm)">
+
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-effect" placeholder="Add New Categories"
+                            name="category" #newCategory='ngModel' [(ngModel)]="formCategory" required
+                            [ngClass]=" { 'is-invalid' : newCategory.touched && newCategory.invalid } ">
+
+                        <div class="alert alert-danger" *ngIf="newCategory.touched && newCategory.invalid">
+                            Category is required
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-block btn-info shadow-effect mb-2 w-100 btn-theme"
+                        [disabled]="categoryForm.invalid"> {{ formStatus }} </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+            <div class="card shadow-effect">
+                <div class="card-body">
+                    <table class="table row-border hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Category</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let category of categories$ | async ; let i = index">
+                                <td> {{ i + 1 }} </td>
+                                <td> {{ category.category }} </td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        (click)="onEdit(category.id, category.category)">Edit</button>
+                                    <button class="btn btn-sm btn-danger m-1"
+                                        (click)="onDelete(category.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3"></div>
+
+    </div>
+
+</div>
